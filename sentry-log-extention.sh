@@ -6,7 +6,7 @@ database='mydb'
 collection='app_logs'
 
 # Set the path to the log file to monitor
-log_file='/path/to/your/log/file.log'
+log_file='/var/log/test.log'
 
 # Start tailing the log file and sending new data to MongoDB
 tail -F $log_file | while read line
@@ -21,5 +21,5 @@ do
   json="{\"date\":\"$date\",\"time\":\"$time\",\"level\":\"$level\",\"message\":\"$message\"}"
 
   # Send the JSON object to MongoDB using the `mongoimport` command
-  echo $json | mongoimport --uri=$uri --collection=$collection --db=$database --quiet
+  echo $json | mongoimport --uri=$uri --collection=$collection --quiet
 done

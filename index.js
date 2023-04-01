@@ -4,6 +4,7 @@ const express = require("express");
 const nodemon = require('nodemon')
 const { MongoClient } = require('mongodb');
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
 
 const app = express();
 const server = app.listen(3000);
@@ -59,6 +60,11 @@ app.get("/", (req, res) => {
 app.get("/documentation", (req, res) => {
   res.sendFile(`${__dirname}/public/doc.html`);
 });
+
+app.get("/logs", (req, res) => {
+  res.sendFile(`${__dirname}/public/logs.html`);
+});
+
 
 let isRunning = false;
 
@@ -408,8 +414,8 @@ app.post("/infra-monitor", (req, res) => {
         const timestamp = new Date().toISOString();
         writeStream.write(`${timestamp} - ${strippedData}\n`);
         try {
-          const db = client.db('mydb'); // Replace with your database name
-          const result = await db.collection('logs').insertOne({
+          const db = client.db('centry_logs'); // Replace with your database name
+          const result = await db.collection('session_logs').insertOne({
             timestamp,
             message: strippedData,
             type: 'stdout',
@@ -432,8 +438,8 @@ app.post("/infra-monitor", (req, res) => {
         const timestamp = new Date().toISOString();
         writeStream.write(`${timestamp} - ${strippedData}\n`);
         try {
-          const db = client.db('mydb'); // Replace with your database name
-          const result = await db.collection('logs').insertOne({
+          const db = client.db('centry_logs'); // Replace with your database name
+          const result = await db.collection('session_logs').insertOne({
             timestamp,
             message: strippedData,
             type: 'stderr',
@@ -456,8 +462,8 @@ app.post("/infra-monitor", (req, res) => {
         const timestamp = new Date().toISOString();
         writeStream.write(`${timestamp} - ${strippedData}\n`);
         try {
-          const db = client.db('mydb'); // Replace with your database name
-          const result = await db.collection('logs').insertOne({
+          const db = client.db('centry_logs'); // Replace with your database name
+          const result = await db.collection('session_logs').insertOne({
             timestamp,
             message: strippedData,
             type: 'stdout',
@@ -527,7 +533,7 @@ app.post("/re-initialize", (req, res) => {
     // Run the Terraform apply command
     // terraform init && terraform plan -var-file="var/var.tfvars" -auto-approve
     const terraform = exec(
-      'terraform init && terraform plan -var-file="var/var.tfvars" -out -input=false'
+      'terraform init && terraform apply -var-file="var/var.tfvars" -input=false -auto-approve'
     );
     io.sockets.emit("log", `Deploying the monitoring solution.`);
     writeStream.write("Deploying the monitoring solution.");
@@ -541,8 +547,8 @@ app.post("/re-initialize", (req, res) => {
         const timestamp = new Date().toISOString();
         writeStream.write(`${timestamp} - ${strippedData}\n`);
         try {
-          const db = client.db('mydb'); // Replace with your database name
-          const result = await db.collection('logs').insertOne({
+          const db = client.db('centry_logs'); // Replace with your database name
+          const result = await db.collection('session_logs').insertOne({
             timestamp,
             message: strippedData,
             type: 'stdout',
@@ -565,8 +571,8 @@ app.post("/re-initialize", (req, res) => {
         const timestamp = new Date().toISOString();
         writeStream.write(`${timestamp} - ${strippedData}\n`);
         try {
-          const db = client.db('mydb'); // Replace with your database name
-          const result = await db.collection('logs').insertOne({
+          const db = client.db('centry_logs'); // Replace with your database name
+          const result = await db.collection('session_logs').insertOne({
             timestamp,
             message: strippedData,
             type: 'stderr',
@@ -589,8 +595,8 @@ app.post("/re-initialize", (req, res) => {
         const timestamp = new Date().toISOString();
         writeStream.write(`${timestamp} - ${strippedData}\n`);
         try {
-          const db = client.db('mydb'); // Replace with your database name
-          const result = await db.collection('logs').insertOne({
+          const db = client.db('centry_logs'); // Replace with your database name
+          const result = await db.collection('session_logs').insertOne({
             timestamp,
             message: strippedData,
             type: 'stdout',
@@ -619,4 +625,29 @@ app.post("/re-initialize", (req, res) => {
       })();
     });
   });
+});
+
+mongoose.connect('mongodb+srv://minurakariyawasaminfo:RyQ3jWW2ZbttOFYD@cluster0.nfyfngf.mongodb.net/centry_logs?retryWrites=true', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const app_logs = mongoose.model('app_logs', { date: String, time: String, level: String, message: String });
+const session_logs = mongoose.model('session_logs', { title: String, content: String });
+
+app.get('/api/:collection', async (req, res) => {
+  const collection = req.params.collection;
+  let data;
+
+  switch (collection) {
+    case 'app_logs':
+      data = await app_logs.find();
+      break;
+    case 'infra_logs':
+      data = await session_logs.find();
+      break;
+    default:
+      data = [];
+  }
+  res.json(data);
 });
