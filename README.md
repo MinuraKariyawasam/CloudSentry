@@ -37,7 +37,5 @@ We welcome contributions to CloudSentry Monitoring Solution. If you have an idea
 
 ## License
 
-CloudSentry Monitoring Solution is licensed under the MIT License. See the [LICENSE](https://github.com/MinuraKariyawasam/CloudSentry/blob/main/LICENSE) file for more information.# CloudSentry Monitoring Solution
-
-CloudSentry Monitoring Solution is a centralized monitoring platform for cloud deployments that allows engineers to monitor critical components and view centralized logs for these components.
+CloudSentry Monitoring Solution is licensed under the MIT License. See the [LICENSE](https://github.com/MinuraKariyawasam/CloudSentry/blob/main/LICENSE) file for more information.
 
