@@ -51,8 +51,8 @@
         <a class="btn btn-outline-light btn-lg" href="/logs"
           >Centralized Logs</a
         >
-        <a class="btn btn-outline-light btn-lg" href="/documentation"
-          >Updated Values</a
+        <a class="btn btn-outline-light btn-lg" href="/state"
+          >Deployment State</a
         >
       </div>
     </header>
@@ -110,15 +110,15 @@
         if (collection === 'app_logs') {
             const response = await fetch(`/api/${collection}`);
             const data = await response.json();
-            const logs = data.map(log => `${log.date} - ${log.time} - ${log.message}`).join('<br>');
+            const logs = data.map(log => `${log.date} - ${log.time} - SERVER: ${log.server_hostname} - ${log.message}`).join('<br>');
             dataDiv.innerHTML = JSON.stringify(logs);
-        } else {
+        }
+         else {
             const response = await fetch(`/api/${collection}`);
             const data = await response.json();
             const logs = data.map(log => `${log.timestamp} - ${log.type} - ${log.message.replace(/\n/g, "<br>")}<br>`).join();
             dataDiv.innerHTML = JSON.stringify(logs);
         }
-
       });
     </script>
   </body>

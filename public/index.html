@@ -59,50 +59,21 @@
         <p class="lead">The modern minimalist cloud monitoring framework.</p>
         <a class="btn btn-outline-light btn-lg" href="/documentation">Documentation</a>
         <a class="btn btn-outline-light btn-lg" href="/logs">Centralized Logs</a>
-        <a class="btn btn-outline-light btn-lg" href="/documentation">Updated Values</a>
+        <a class="btn btn-outline-light btn-lg" href="/state">Deployment State</a>
     </div>
     <div class="container mt-5">
-        <h3>Step 1: Choose Server Operating System</h3>
-        <p>
-            CloudSentry allows you to choose the server operating system that you want to deploy the monitoring solution
-            on. Select the operating system that fits your needs and continue to step 2.
-        </p>
+        <h3>Choose Server Operating System</h3>
         <form>
             <div class="form-group">
                 <select class="form-control">
-                    <option>Windows</option>
                     <option>Linux</option>
+                    <option>Windows</option>
                 </select>
             </div>
         </form>
         <hr>
-        <h3 id="step2">Step 2: Choose Cloud Vendor</h3>
-        <p>
-            CloudSentry also allows you to choose the cloud vendor that you want to deploy on. Choose the vendor that
-            fits your needs and continue to step 3.
-        </p>
-        <form>
-            <div class="form-group">
-                <select class="form-control">
-                    <option>Microsoft Azure</option>
-                </select>
-            </div>
-        </form>
-        <hr>
-        <h3 id="step3">Step 3: Deploy the Monitoring Solution</h3>
+        <h3 id="step3">Deploy Infrastructure Monitoring</h3>
         <div class="infra-monitoring">
-            <h5 id="step3">Step 3.1: Infrastructure Monitoring Config</h5>
-            <p>CloudSentry is a cutting-edge cloud-native monitoring solution that is designed to keep a close eye on
-                your critical cloud infrastructure components. Our solution is specifically designed to monitor Azure
-                components, including scale sets, load balancers, and databases. With CloudSentry, you can ensure that
-                your cloud deployment is running smoothly and that all critical components are performing optimally.
-            </p>
-            <p class="warning">In our MVP (Minimum Viable Product) phase, we are focusing solely on monitoring the Azure
-                components that are most critical to your cloud infrastructure. This will help you proactively identify
-                and resolve any issues before they become critical, ensuring that your cloud deployment remains stable
-                and secure. With CloudSentry, you can have peace of mind knowing that your cloud infrastructure is
-                always under close monitoring and control.
-            </p>
             <div class="form-group">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Resource Group Name</label>
@@ -336,56 +307,62 @@
         <hr>
 
         <div class="application-monitoring">
-            <h5 id="step3">Step 3.2: Application Monitoring Config</h5>
-            <p>
-                CloudSentry is a comprehensive cloud-native monitoring solution designed to keep your cloud deployment
-                running smoothly.
-                Our solution provides real-time monitoring of your Java applications, ensuring that everything is
-                functioning optimally.
-
-
-            <p>To take advantage of CloudSentry, you must follow a few simple prerequisites. </p>
-
-            <p class="font-weight-bold">Firstly, you must add the Log Analytics Java Agent to your project. This
-                open-source library is designed to collect and send logs to Log Analytics,
-                making it a critical component of CloudSentry. </p>
-
-            <p class="font-weight-bold">Secondly, you must add log statements to your Java code.
-                This will allow the Java Agent to collect your logs and send them to Log Analytics, where they will be
-                monitored in real-time.</p>
-            </p>
+            <h3 id="step3">Application Logs Monitoring Config</h3>
             <div class="form-group">
-                <form>
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option>Java</option>
-                        </select>
-                    </div>
-                </form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Mongodb Cluster URI</label>
+                    <input type="text" class="form-control" id="dburi" aria-describedby="vmhost">
+                </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">VM Host</label>
+                <input type="text" class="form-control" id="vmhost" aria-describedby="vmhost">
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Log File Path</label>
+                <label for="exampleInputEmail1">Bastion Host</label>
+                <input type="text" class="form-control" id="bastionhost" aria-describedby="bastionhost">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">VM Username</label>
+                <input type="text" class="form-control" id="vmusername" aria-describedby="vmusername">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">VM Password</label>
+                <input type="password" class="form-control" id="vmpassword" aria-describedby="vmpassword">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Bastion Username</label>
+                <input type="text" class="form-control" id="bastionusername" aria-describedby="bastionusername">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Bastion Password</label>
+                <input type="password" class="form-control" id="bastionpassword" aria-describedby="bastionpassword">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Application Log File Path</label>
                 <input type="text" class="form-control" id="logFilePath" aria-describedby="logFilePath">
+            </div>
+        </div>
+        <hr>
+        <div class="action-group">
+            <h3 id="step3">Configure Alert Receiver</h3>
+            <div class="form-group">
+                <label for="ReceiverName">Receiver Name</label>
+                <input type="text" class="form-control" id="receiverName" aria-describedby="logFilePath">
+            </div>
+            <div class="form-group">
+                <label for="ReceiverEmail">Receiver Email</label>
+                <input type="text" class="form-control" id="receiverEmail" aria-describedby="logFilePath">
             </div>
         </div>
         <br>
 
         <button type="button" class="btn btn-primary" id="btn-submit">Deploy Monitoring</button>
-        <button type="button" class="btn btn-primary" id="btn-submit-with-latest-state">Deploy with lateset
-            state</button>
-        <button type="button" class="btn btn-danger" id="btn-submit-restart">Restart</button>
+        <button type="button" class="btn btn-primary" id="btn-submit-with-latest-state">Restart</button>
+        <button type="button" class="btn btn-danger" id="btn-submit-restart">Destroy Monitoring</button>
         <hr>
-        <h3 id="step3">Live Logs</h3>
+        <h3 id="step3">Monitor Live Logs</h3>
         <p>
-            With CloudSentry, you have the ability to check the live logs in real-time, depending on your session. This
-            provides you with valuable insights into the behavior and performance of your deployment, allowing you to
-            quickly identify and resolve any issues that may arise.
-        </p>
-        <p>
-            In addition to real-time log monitoring, CloudSentry also offers advanced log analytics capabilities. Our
-            solution centralizes your logs, providing you with a comprehensive view of your entire cloud deployment.
-            This makes it easier to spot trends and identify potential problems, allowing you to take proactive measures
-            to ensure the stability and security of your cloud infrastructure.
+            CloudSentry provides the ability to monitor live logs in real-time, giving you valuable insights into the performance and behavior of your deployment. Additionally, our advanced log analytics capabilities provide you with a centralized view of your entire cloud deployment, making it easier to spot trends and identify potential problems.
         </p>
         <div id="logs" class="mt-5">
             <!-- Logs will be displayed here -->
@@ -435,9 +412,19 @@
                     resource_group_name: $('#resource_group_name').val(),
                     location: $('#location').val(),
                     subscriptionsId: $('#subscriptionsId').val(),
-                    log_file_path: $('#log_file_path').val(),
+                    log_file_path: $('#logFilePath').val(),
+                    mongo_db_uri: $('#dburi').val(),
+                    action_group_receiver_name: $('#receiverName').val(),
+                    action_group_receiver_email: $('#receiverEmail').val(),
+                    // security details
+                    vm_host: $('#vmhost').val(),
+                    vm_user: $('#vmusername').val(),
+                    vm_password: $('#vmpassword').val(),
+                    bastion_host: $('#bastionhost').val(),
+                    bastion_user: $('#bastionusername').val(),
+                    bastion_password: $('#bastionpassword').val(),
                     // scaleset variables
-                    scaleset_name: $('#logFilePath').val(),
+                    scaleset_name: $('#scaleset_name').val(),
                     // ----------------------------------
                     cpu_operator: $('#cpu_operator').val(),
                     cpu_threshold: $('#cpu_threshold').val(),
@@ -487,7 +474,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: '/re-initialize',
+                url: '/restart-server',
                 data: {},
                 success: function (data) { }
             });
@@ -496,7 +483,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: '/restart-server',
+                url: '/destroy',
                 data: {},
                 success: function (data) { }
             });

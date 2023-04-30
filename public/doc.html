@@ -1,112 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>CloudSentry Monitoring Solution</title>
     <style>
-        .jumbotron {
-            background-color: #007bff;
-            color: #fff;
-            text-align: center;
-        }
+      .jumbotron {
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+      }
 
-        .form-container {
-            display: none;
-        }
+      .form-container {
+        display: none;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="jumbotron">
-            <h1 class="display-4">CloudSentry</h1>
-            <p class="lead">Getting Started with platform, please follow up the documentation.</p>
-            <a class="btn btn-outline-light btn-lg" href="/">CloudSentry</a>
-            <a class="btn btn-outline-light btn-lg" href="/logs">Centralized Logs</a>
-            <a class="btn btn-outline-light btn-lg" href="/documentation">Updated Values</a>
-        </div>
+      <div class="jumbotron">
+        <h1 class="display-4">CloudSentry</h1>
+        <p class="lead">
+          Getting Started with platform, please follow up the documentation.
+        </p>
+        <a class="btn btn-outline-light btn-lg" href="/">CloudSentry</a>
+        <a class="btn btn-outline-light btn-lg" href="/logs"
+          >Centralized Logs</a
+        >
+        <a class="btn btn-outline-light btn-lg" href="/state"
+          >Deployment State</a
+        >
+      </div>
     </header>
     <main>
-        <section id="getting-started">
-            <div class="container">
-                <h2 class="text-center my-5">Getting Started</h2>
-                <p>
-                    Welcome to CloudSentry Monitoring Solution, a centralized monitoring platform for cloud deployments.
-                    This solution helps engineers monitor critical components during cloud deployment, as well as view
-                    centralized logs for these components.
-                </p>
-                <p>
-                    Before you begin, make sure you have the following:
-                </p>
-                <ol>
-                    <li>Access to a cloud vendor to deploy the solution.</li>
-                    <li>Knowledge of the server operating system you want to use.</li>
-                </ol>
-                <p>
-                    CloudSentry Monitoring Solution provides an easy and efficient way for engineers to monitor critical
-                    components during cloud deployment and view centralized logs for these components. Get started today
-                    and simplify your cloud deployment process!
-                </p>
-            </div>
-        </section>
-        <section id="features">
-            <div class="container">
-                <h2 class="text-left my-5">Step 1: Choose Server Operating System</h2>
-                <p>CloudSentry Monitoring Solution supports various server operating systems such as Windows, Linux, and
-                    macOS. Choose the server operating system that you would like to use for the deployment.</p>
+      <section id="getting-started">
+        <div class="container">
+          <h2 class="text-center my-5">Getting Started</h2>
+          <p>
+            Welcome to CloudSentry Monitoring Solution, a centralized monitoring
+            platform for cloud deployments. This technical documentation
+            provides detailed information on how to deploy and use the
+            CloudSentry Monitoring Solution.
+          </p>
+          <p>Prerequisites</p>
 
-                <p>In this step, you will be selecting the server operating system that you would like to use for the
-                    deployment of the CloudSentry Monitoring Solution.
+          <p>
+            Before deploying the CloudSentry Monitoring Solution, ensure that
+            you have the following prerequisites:
+          </p>
+          <ol>
+            <li>
+              Grant permission to the cloud vendor before deploying the
+              Monitoring Solution from accessing ‘/login’.
+            </li>
+            <li>
+              For deploying the Application log module, please make sure that
+              you have configured Bastion.
+            </li>
+            <li>Configure MongoDB to manage the Application Logs.</li>
+          </ol>
+          <p>
+            CloudSentry Monitoring Solution provides an easy and efficient way
+            for engineers to monitor critical components during cloud deployment
+            and view centralized logs for these components. Get started today
+            and simplify your cloud deployment process!
+          </p>
+        </div>
+      </section>
+      <section id="features">
+        <div class="container">
+          <h2 class="text-left my-5">Step 1: Choose Server Operating System</h2>
+          <p>
+            You need to choose the appropriate server operating system that
+            suits your organization's requirements. The CloudSentry Monitoring
+            Solution supports various operating systems such as Windows, Linux,
+            and macOS. It is important to carefully consider the capabilities
+            and limitations of each operating system before making a choice.
+          </p>
 
-                </p>
+          <p>
+            The selected operating system should be compatible with the
+            CloudSentry Monitoring Solution to ensure that the solution runs
+            smoothly and effectively. For example, if your organization already
+            uses Linux servers, it may be more convenient to deploy the
+            CloudSentry Monitoring Solution on a Linux operating system.
+          </p>
 
-                <p>CloudSentry Monitoring Solution is compatible with a range of server operating systems such as
-                    Windows, Linux, and macOS. Based on your organization's requirements, you can choose the operating
-                    system that best suits your needs.
-                </p>
+          <p>
+            Additionally, the chosen operating system should be capable of
+            supporting the monitoring needs of your organization. For instance,
+            if your organization requires real-time monitoring of specific
+            components, you may need an operating system that can handle the
+            required resources and processing power.
+          </p>
 
-                <p>It is important to choose the appropriate operating system as this will ensure that the monitoring
-                    solution runs smoothly and effectively. Ensure that you have a complete understanding of your
-                    organization's requirements and the capabilities of the various operating systems before making a
-                    choice.
-                </p>
-            </div>
-        </section>
-        <section id="features">
-            <div class="container">
-                <h2 class="text-left my-5">Step 2: Choose Cloud Vendor</h2>
-                <p>CloudSentry Monitoring Solution supports multiple cloud vendors such as Amazon Web Services (AWS),
-                    Microsoft Azure, and Google Cloud Platform (GCP). Choose the cloud vendor that you would like to
-                    deploy the solution on.</p>
-            </div>
-        </section>
-        <section id="features">
-            <div class="container">
-                <h2 class="text-left my-5">Step 3: Deploy CloudSentry Monitoring Solution</h2>
-                <p>CloudSentry Monitoring Solution allows you to monitor critical components during cloud deployment.
-                    The solution provides real-time updates on the performance and status of these components. </p>
-            </div>
-        </section>
-        <section id="features">
-            <div class="container">
-                <h2 class="text-left my-5">Step 4: Monitor Critical Components</h2>
-                <p>Once you have chosen the server operating system and cloud vendor, you can deploy the CloudSentry
-                    Monitoring Solution on your chosen cloud vendor. Follow the instructions provided by the cloud
-                    vendor to deploy the solution. </p>
-            </div>
-        </section>
-        <section id="features">
-            <div class="container">
-                <h2 class="text-left my-5">Step 5: View Centralized Logs</h2>
-                <p>CloudSentry Monitoring Solution provides centralized logging for the critical components being
-                    monitored. This allows engineers to easily view logs from all monitored components in one place.</p>
-            </div>
-        </section>
+          <p>
+            Therefore, before choosing the operating system, make sure to have a
+            complete understanding of your organization's requirements and the
+            capabilities of the various operating systems to make an informed
+            decision. This will ensure that the CloudSentry Monitoring Solution
+            runs smoothly and effectively, allowing for efficient monitoring of
+            critical components during cloud deployment.
+          </p>
+        </div>
+      </section>
+      <section id="features">
+        <div class="container">
+          <h2 class="text-left my-5">Step 2: Choose Cloud Vendor</h2>
+          <p>
+            CloudSentry Monitoring Solution technical documentation refers to
+            choosing the cloud vendor on which you want to deploy the monitoring
+            solution. CloudSentry Monitoring Solution is compatible with
+            multiple cloud vendors such as AWS, Azure, and GCP.
+          </p>
+
+          <p>
+            Choosing the cloud vendor depends on your organization's
+            requirements and preferences. Each cloud vendor has its advantages
+            and disadvantages, and you need to evaluate them based on factors
+            such as cost, scalability, security, and performance.
+          </p>
+
+          <p>
+            AWS is a widely used cloud vendor that offers a broad range of cloud
+            services, including compute, storage, networking, and databases. AWS
+            is known for its scalability and flexibility, making it an excellent
+            choice for organizations that require highly scalable applications
+            and services.
+          </p>
+
+          <p>
+            Microsoft Azure is a cloud vendor that offers a comprehensive range
+            of cloud services, including computing, networking, storage, and
+            analytics. Azure is a preferred choice for organizations that use
+            Microsoft products and services, as it provides tight integration
+            with Microsoft applications and services.
+          </p>
+
+          <p>
+            Google Cloud Platform (GCP) is a cloud vendor that offers a broad
+            range of cloud services, including compute, storage, networking, and
+            machine learning. GCP is known for its robust infrastructure and
+            advanced security features, making it an excellent choice for
+            organizations that prioritize security.
+          </p>
+
+          <p>
+            In conclusion, choosing the appropriate cloud vendor for deploying
+            the CloudSentry Monitoring Solution depends on your organization's
+            requirements, preferences, and budget. Evaluate each cloud vendor
+            based on your requirements and choose the one that provides the best
+            value for your organization.
+          </p>
+        </div>
+      </section>
+      <section id="features">
+        <div class="container">
+          <h2 class="text-left my-5">
+            Step 3: Deploy CloudSentry Monitoring Solution
+          </h2>
+          <p>
+            To deploy CloudSentry Monitoring Solution, you will first need to
+            select the appropriate server operating system and cloud vendor as
+            outlined in steps 1 and 2. Once you have chosen your preferred
+            server operating system and cloud vendor, you can proceed to deploy
+            the CloudSentry Monitoring Solution on your chosen cloud vendor.
+          </p>
+          <p>
+            The deployment process may vary depending on the cloud vendor and
+            operating system being used. However, the general steps involved in
+            deploying the solution typically include creating an instance on the
+            cloud vendor, configuring the necessary settings such as network
+            settings and security settings, and installing the CloudSentry
+            Monitoring Solution on the instance.
+          </p>
+          <p>
+            It is important to ensure that you follow the instructions provided
+            by the cloud vendor and CloudSentry to ensure that the deployment
+            process is successful. You can also customize the solution
+            parameters based on your specific requirements, which can be found
+            on the cloud vendor's official website or CloudSentry's website.
+          </p>
+          <p>
+            Once the CloudSentry Monitoring Solution is deployed, you can start
+            monitoring critical components during cloud deployment. The solution
+            provides real-time updates on the performance and status of these
+            components, allowing you to quickly identify and address any issues
+            that may arise. Additionally, the solution provides centralized
+            logging for the critical components being monitored, allowing you to
+            easily view logs from all monitored components in one place.
+          </p>
+        </div>
+      </section>
+      <section id="features">
+        <div class="container">
+          <h2 class="text-left my-5">Step 4: Alert Receiver Configuration</h2>
+          <p>
+            CloudSentry Monitoring Solution involves configuring the alert
+            receiver to receive notifications when alerts are triggered.
+          </p>
+          <p>
+            An alert is triggered when a monitored component exceeds a certain
+            threshold or meets specific conditions set by the user. When an
+            alert is triggered, the CloudSentry Monitoring Solution sends a
+            notification to the configured alert receiver, such as an email or a
+            Slack channel.
+          </p>
+          <p>
+            To configure the alert receiver, navigate to the CloudSentry
+            Monitoring Solution dashboard and access the alert settings section.
+            Here, you can configure the alert receiver to receive notifications
+            via email, Slack, or other supported channels.
+          </p>
+          <p>
+            Once the alert receiver is configured, you can set up alerts for
+            critical components based on specific conditions or thresholds.
+            These alerts will trigger notifications to the configured alert
+            receiver, allowing engineers to quickly respond to potential issues
+            and resolve them before they escalate.
+          </p>
+          <p>
+            Overall, configuring the alert receiver is an essential step in
+            deploying the CloudSentry Monitoring Solution, as it helps ensure
+            that critical issues are promptly addressed and resolved.
+          </p>
+        </div>
+      </section>
+      <section id="features">
+        <div class="container">
+          <h2 class="text-left my-5">Step 5: View Centralized Logs</h2>
+          <p>
+            Centralized logging is a powerful feature that allows you to view
+            all the logs from various components being monitored in one place,
+            making it easier to troubleshoot issues and identify patterns.
+          </p>
+          <p>
+            To view the centralized logs, you need to access the CloudSentry
+            Monitoring Solution dashboard, which is the main interface for the
+            solution. Once you have logged in, navigate to the logs section,
+            which should be prominently displayed in the menu.
+          </p>
+          <p>
+            In the logs section, you will be able to see logs from all the
+            components that are being monitored by the CloudSentry Monitoring
+            Solution. You can filter the logs based on various parameters such
+            as time, component, and severity. This allows you to quickly
+            identify any issues that may be affecting your cloud deployment.
+          </p>
+          <p>
+            For example, if you are experiencing issues with a particular
+            component, you can filter the logs by that component to see if there
+            are any error messages or other issues that may be causing the
+            problem. Similarly, if you are trying to identify patterns or trends
+            in your logs, you can filter the logs based on time and severity to
+            see if there are any common issues that need to be addressed.
+          </p>
+          <p>
+            Overall, the centralized logging feature provided by CloudSentry
+            Monitoring Solution is a powerful tool that can help you to manage
+            your cloud deployment more effectively. By providing a single
+            interface for viewing logs from all your components, it makes it
+            easier to troubleshoot issues and identify patterns, ultimately
+            leading to a more efficient and reliable cloud deployment.
+          </p>
+        </div>
+      </section>
     </main>
-</body>
-
+  </body>
 </html>

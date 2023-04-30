@@ -4,7 +4,7 @@
 
 # CPU MONITORING
 resource "azurerm_monitor_metric_alert" "scaleset-cpu" {
-  name                = "HIGH CPU PRECENETAGE"
+  name                = "SCALE SET - HIGH CPU PRECENETAGE"
   resource_group_name = var.resource_group_name
   scopes              = [var.scaleset_scopes]
   description         = var.scaleset_cpu_description
@@ -36,7 +36,7 @@ resource "azurerm_monitor_metric_alert" "scaleset-cpu" {
 
 # MEMORY MONITORING
 resource "azurerm_monitor_metric_alert" "sentry-scaleset-memory" {
-  name                = "sentry SCALE SET - HIGH MEMORY USAGE"
+  name                = "SCALE SET - HIGH MEMORY USAGE"
   resource_group_name = var.resource_group_name
   scopes              = [var.scaleset_scopes]
   description         = var.scaleset_memory_description
