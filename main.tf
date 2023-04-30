@@ -131,7 +131,7 @@ module "scaleset_monitoring" {
   action_group_id     = azurerm_monitor_action_group.sentry_azure_action_group.id
 
   # CPU ALERT VARS
-  scaleset_cpu_description = var.scaleset_cpu_description
+  scaleset_cpu_description = "Action will be triggered when SCALESET CPU is ${var.cpu_operator} ${var.cpu_threshold}%\n"
   cpu_operator             = var.cpu_operator
   cpu_threshold            = var.cpu_threshold
   cpu_frequency            = var.cpu_frequency
@@ -139,7 +139,7 @@ module "scaleset_monitoring" {
   cpu_window_size          = var.cpu_window_size
 
   #MEMORY ALERT VARS
-  scaleset_memory_description = var.scaleset_memory_description
+  scaleset_memory_description = "Action will be triggered when SCALESET MEMORY is ${var.memory_operator} ${var.memory_threshold}%\n"
   memory_operator             = var.memory_operator
   memory_threshold            = var.memory_threshold
   memory_frequency            = var.cpu_frequency
@@ -158,7 +158,7 @@ module "application_gateway_monitoring" {
   action_group_id     = azurerm_monitor_action_group.sentry_azure_action_group.id
 
   # APP GATEWAY RESPONSE STATUS
-  response_status_description = var.response_status_description
+  response_status_description = "Action will be triggered when GATEWAY RESPONSE STATUS is ${var.response_status_operator} ${var.response_status_threshold}%\n"
   response_status_operator    = var.response_status_operator
   response_status_threshold   = var.response_status_threshold
   response_status_frequency   = var.response_status_frequency
@@ -167,7 +167,7 @@ module "application_gateway_monitoring" {
 
 
   # APP GATEWAY UNHEALTHY HOST COUNT
-  unhealthy_host_count_description = var.unhealthy_host_count_description
+  unhealthy_host_count_description = "Action will be triggered when GATEWAY UNHEALTHY HOST COUNT is ${var.unhealthy_host_count_operator} ${var.unhealthy_host_count_threshold}%\n"
   unhealthy_host_count_operator    = var.unhealthy_host_count_operator
   unhealthy_host_count_threshold   = var.unhealthy_host_count_threshold
   unhealthy_host_count_frequency   = var.unhealthy_host_count_frequency
@@ -186,7 +186,7 @@ module "mysql_database_monitoring" {
 
 
   # MYSQL DATABASE CPU ALERT
-  database_cpu_description = var.database_cpu_description
+  database_cpu_description = "Action will be triggered when DATABASE CPU is ${var.database_cpu_operator} ${var.database_cpu_threshold*100}%\n"
   database_cpu_operator    = var.database_cpu_operator
   database_cpu_threshold   = var.database_cpu_threshold
   database_cpu_frequency   = var.database_cpu_frequency
@@ -195,7 +195,7 @@ module "mysql_database_monitoring" {
 
 
   # MYSQL DATABASE STORAGE ALERT
-  database_storage_description = var.database_storage_description
+  database_storage_description = "Action will be triggered when DATABASE STORAGE is ${var.database_storage_operator} ${var.database_storage_threshold}%\n"
   database_storage_operator    = var.database_storage_operator
   database_storage_threshold   = var.database_storage_threshold
   database_storage_frequency   = var.database_storage_frequency

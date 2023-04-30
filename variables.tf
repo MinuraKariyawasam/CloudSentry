@@ -126,11 +126,6 @@ variable "scaleset_scopes" {
 
 
 # CPU ALERT VARS
-variable "scaleset_cpu_description" {
-  description = "The description of scale set cpu metric alert"
-  type        = string
-  default     = "default description"
-}
 variable "cpu_operator" {
   description = "The operator of the scale set cpu metric alert"
   type        = string
@@ -157,11 +152,6 @@ variable "cpu_window_size" {
 
 
 # MEMORY ALERT VARS
-variable "scaleset_memory_description" {
-  description = "The description of scale set memory metric alert"
-  type        = string
-  default     = "default description"
-}
 variable "memory_operator" {
   description = "The operator of the scale set memory metric alert"
   type        = string
@@ -200,11 +190,7 @@ variable "appgateway_scopes" {
 
 
 # APP GATEWAY RESPONSE STATUS
-variable "response_status_description" {
-  description = "The description of application gateway response status metric alert"
-  type        = string
-  default     = "default description"
-}
+
 variable "response_status_operator" {
   description = "The operator of application gateway response status metric alert"
   type        = string
@@ -231,11 +217,7 @@ variable "response_status_window_size" {
 
 
 # APP GATEWAY UNHEALTHY HOST COUNT
-variable "unhealthy_host_count_description" {
-  description = "The description of application gateway unhealthy host count metric alert"
-  type        = string
-  default     = "default description"
-}
+
 variable "unhealthy_host_count_operator" {
   description = "The operator of application gateway unhealthy host count metric alert"
   type        = string
@@ -275,11 +257,7 @@ variable "database_scopes" {
 
 
 # MYSQL DATABASE CPU ALERT
-variable "database_cpu_description" {
-  description = "The description of mysql server cpu metric alert"
-  type        = string
-  default     = "default description"
-}
+
 variable "database_cpu_operator" {
   description = "The operator of mysql server cpu metric alert"
   type        = string
@@ -306,11 +284,7 @@ variable "database_cpu_window_size" {
 
 
 # MYSQL DATABASE STORAGE ALERT
-variable "database_storage_description" {
-  description = "The description of mysql server storage metric alert"
-  type        = string
-  default     = "default description"
-}
+
 variable "database_storage_operator" {
   description = "The operator of mysql server storage metric alert"
   type        = string
