@@ -7,6 +7,7 @@ CloudSentry Monitoring Solution is a centralized monitoring platform for cloud d
 
 Before you begin, make sure you have the following:
 
+-   In Windows, Run the init.bat file.
 -   Grant permission to the cloud vendor before deploying the Monitoring Solution from accessing '/login'.
 -   For deploying the Application log module, please make sure that you have configured Bastion.
 -   Please make sure to configure MongoDB to manage the Application Logs.
