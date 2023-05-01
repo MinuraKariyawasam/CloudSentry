@@ -31,22 +31,6 @@ const io = require("socket.io")(server);
 const fs = require("fs");
 const { exec } = require("child_process");
 
-// Set up MongoDB connection
-const uri =
-  "mongodb+srv://minurakariyawasaminfo:RyQ3jWW2ZbttOFYD@cluster0.nfyfngf.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-
-async function connectToMongoDB() {
-  try {
-    await client.connect();
-    console.log("Connected to MongoDB");
-  } catch (err) {
-    console.error(err);
-  }
-}
-// initialize the connection object
-connectToMongoDB();
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -208,8 +192,7 @@ app.post("/infra-monitor", isAuthenticated, (req, res) => {
   let unhealthy_host_count_threshold = req.body.unhealthy_host_count_threshold;
   let unhealthy_host_count_severity = req.body.unhealthy_host_count_severity;
   let unhealthy_host_count_frequency = req.body.unhealthy_host_count_frequency;
-  let unhealthy_host_count_window_size =
-    req.body.unhealthy_host_count_window_size;
+  let unhealthy_host_count_window_size = req.body.unhealthy_host_count_window_size;
   // ----------------------
   let database_name = req.body.database_name;
   let server_name = req.body.server_name;
@@ -229,6 +212,21 @@ app.post("/infra-monitor", isAuthenticated, (req, res) => {
   let scaleset_scopes = `/subscriptions/${subscriptionsId}/resourceGroups/${resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/${scaleset_name}`;
   let appgateway_scopes = `/subscriptions/${subscriptionsId}/resourceGroups/${resource_group_name}/providers/Microsoft.Network/applicationGateways/${appgateway_name}`;
   let database_scopes = `/subscriptions/${subscriptionsId}/resourceGroups/${resource_group_name}/providers/Microsoft.Sql/servers/${server_name}/databases/${database_name}`;
+
+  // Set up MongoDB connection
+  const uri = mongo_db_uri;
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+
+  async function connectToMongoDB() {
+    try {
+      await client.connect();
+      console.log("Connected to MongoDB");
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  // initialize the connection object
+  connectToMongoDB();
 
   // Read the contents of the ../automation/var/var.tfvars file
   fs.readFile("var/var.tfvars", "utf8", (err, contents) => {
@@ -571,6 +569,30 @@ app.post("/infra-monitor", isAuthenticated, (req, res) => {
 
 // re starts the server
 app.post("/restart-server", (req, res) => {
+
+  const tfvars = fs.readFileSync("var/var.tfvars");
+
+  // Parse the .tfvars content into an object
+  const parsed = dotenv.parse(tfvars);
+  
+  // Assign the value of resource_group_name to a variable
+  const mongo_db_uri_sentry_re = parsed.mongo_db_uri;
+
+    // Set up MongoDB connection
+    const uri = mongo_db_uri_sentry_re;
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+  
+    async function connectToMongoDB() {
+      try {
+        await client.connect();
+        console.log("Connected to MongoDB");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    // initialize the connection object
+    connectToMongoDB();
+
   // Check if the server is already restarting
   if (isRestarting) {
     io.sockets.emit("log", `Server is already restarting.`);
@@ -712,15 +734,13 @@ const tfvars = fs.readFileSync("var/var.tfvars");
 const parsed = dotenv.parse(tfvars);
 
 // Assign the value of resource_group_name to a variable
-const mongo_db_uri_sentry = parsed.mongo_db_uri;
+const mongo_db_uri_sentry = parsed.mongo_db_uri.toString();
+console.log(mongo_db_uri_sentry);
 
-mongoose.connect(
-  mongo_db_uri_sentry,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(mongo_db_uri_sentry, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app_logs = mongoose.model("app_logs", {
   date: String,
@@ -766,6 +786,28 @@ app.get("/var", (req, res) => {
 // save the update file and re run the deployment
 app.post("/var", (req, res) => {
   const content = req.body.content;
+  const tfvars = fs.readFileSync("var/var.tfvars");
+
+  // Parse the .tfvars content into an object
+  const parsed = dotenv.parse(tfvars);
+  
+  // Assign the value of resource_group_name to a variable
+  const mongo_db_uri_sentry_re_session = parsed.mongo_db_uri;
+
+    // Set up MongoDB connection
+    const uri = mongo_db_uri_sentry_re_session;
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+  
+    async function connectToMongoDB() {
+      try {
+        await client.connect();
+        console.log("Connected to MongoDB");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    // initialize the connection object
+    connectToMongoDB();
   fs.writeFile("var/var.tfvars", content, "utf8", (err) => {
     if (err) {
       console.log(err);
@@ -800,7 +842,7 @@ app.post("/var", (req, res) => {
           io.sockets.emit("log", strippedData);
         })();
       });
-  
+
       terraform.stderr.on("data", (data) => {
         (async () => {
           const { default: stripAnsi } = await import("strip-ansi");
@@ -824,7 +866,7 @@ app.post("/var", (req, res) => {
           io.sockets.emit("log", strippedData);
         })();
       });
-  
+
       terraform.on("close", (code) => {
         (async () => {
           const { default: stripAnsi } = await import("strip-ansi");
@@ -849,7 +891,7 @@ app.post("/var", (req, res) => {
             "log",
             `Terraform process exited with code ${strippedData}`
           );
-  
+
           writeStream.write("End of the log session. \n");
           writeStream.write(
             "--------------------------------------------------------------- \n"
@@ -888,7 +930,7 @@ app.get("/alarms", (req, res) => {
     (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
-        return res.status(500).send("Internal server error"); 
+        return res.status(500).send("Internal server error");
       }
 
       if (stderr.includes("exec error:")) {
