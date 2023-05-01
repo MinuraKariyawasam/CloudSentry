@@ -614,6 +614,28 @@ app.post("/restart-server", (req, res) => {
 
 // destroy the terraform deployment
 app.post("/destroy", (req, res) => {
+  const tfvars = fs.readFileSync("var/var.tfvars");
+
+  // Parse the .tfvars content into an object
+  const parsed = dotenv.parse(tfvars);
+  
+  // Assign the value of resource_group_name to a variable
+  const mongo_db_uri_sentry_re = parsed.mongo_db_uri;
+
+    // Set up MongoDB connection
+    const uri = mongo_db_uri_sentry_re;
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+  
+    async function connectToMongoDB() {
+      try {
+        await client.connect();
+        console.log("Connected to MongoDB");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    // initialize the connection object
+    connectToMongoDB();
   res.header("Content-Type", "text/html; charset=utf-8");
   if (isRunning) {
     io.sockets.emit("log", `Command is already running.`);
