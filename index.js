@@ -706,8 +706,16 @@ app.post("/destroy", (req, res) => {
   });
 });
 
+const tfvars = fs.readFileSync("var/var.tfvars");
+
+// Parse the .tfvars content into an object
+const parsed = dotenv.parse(tfvars);
+
+// Assign the value of resource_group_name to a variable
+const mongo_db_uri_sentry = parsed.mongo_db_uri;
+
 mongoose.connect(
-  "mongodb+srv://minurakariyawasaminfo:RyQ3jWW2ZbttOFYD@cluster0.nfyfngf.mongodb.net/centry_logs?retryWrites=true",
+  mongo_db_uri_sentry,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
