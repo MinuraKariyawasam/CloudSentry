@@ -108,4 +108,3 @@ dist
 terraform.tfstate
 *.tfstate
 *.tfstate.*
-*.tfvars
