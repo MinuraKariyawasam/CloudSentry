@@ -757,7 +757,6 @@ const parsed = dotenv.parse(tfvars);
 
 // Assign the value of resource_group_name to a variable
 const mongo_db_uri_sentry = parsed.mongo_db_uri.toString();
-console.log(mongo_db_uri_sentry);
 
 mongoose.connect(mongo_db_uri_sentry, {
   useNewUrlParser: true,
